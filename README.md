@@ -52,8 +52,8 @@ This app leverages ![Dark Sky API](https://developer.forecast.io) and ![Google M
 
 ### Process
 
-1. Wireframes
-1. Trello board:
+1. Wireframes (link)
+1. ![Trello board](https://trello.com/b/GqW5zyFd/skycast-weather-app)
 1. Step 1: skeleton content (front and back end)
 1. Step 2: basic CSS formatting of skeleton content
 1. Step 3: Google Maps and Dark Sky API calls

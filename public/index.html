@@ -10,10 +10,10 @@
     <!-- Add a favicon -->
     <!-- Link to Bootstrap latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!-- Link to Bootstrap latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Link to jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Link to Bootstrap latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Link to Angular Library -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
     <!-- Link to app.js File  -->
@@ -21,7 +21,8 @@
     <title>SkyCast: Disrupt the Weather</title>
   </head>
   <!-- DOM -->
-  <body>
-
+  <body ng-controller="mainController as ctrl">
+    hello
+    <h1>{{ctrl.testing}}</h1>
   </body>
 </html>
