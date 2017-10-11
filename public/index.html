@@ -24,5 +24,23 @@
   <body ng-controller="mainController as ctrl">
     hello
     <h1>{{ctrl.testing}}</h1>
+
+    <h2>Logged in user's username: {{ctrl.user.username}}</h2>
+
+    <form ng-submit="ctrl.login(userPass)">
+      <input type="text" ng-model="userPass.username" placeholder="username"/>
+      <input type="password" ng-model="userPass.password" placeholder="password"/>
+      <input type="submit"/>
+    </form>
+
+    <form ng-submit="ctrl.register(userReg)">
+      <input type="text" ng-model="userReg.username" placeholder="username"/>
+      <input type="password" ng-model="userReg.password" placeholder="password"/>
+      <input type="confirmPassword" ng-model="userReg.confirmPassword" placeholder="confirm password"/>
+      <input type="submit"/>
+      <p ng-if="ctrl.noMatch===true">Passwords do not match. Please reenter and confirm your password.</p>
+    </form>
+
+
   </body>
 </html>

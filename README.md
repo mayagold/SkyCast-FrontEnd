@@ -57,7 +57,7 @@ This app leverages ![Dark Sky API](https://developer.forecast.io) and ![Google M
 1. Step 1: skeleton content (front and back end)
 1. Step 2: basic CSS formatting of skeleton content
 1. Step 3: Google Maps and Dark Sky API calls
-1. User Authentication (JavaScript Web Tokens)
+1. User Authentication (JSON Web Tokens)
 1. CRUD model allowing users to store (create), ***favorite (edit),*** and remove (delete) past searched locations
 1. Front end design: optimize the user experience
 1. JS application frameworks, testing suites, resource pre-compilers (bonus feature) - this is a stretch goal
