@@ -28,7 +28,9 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
       }
     }).then( response => {
       console.log(response);
-      this.user = response.data.user
+      this.user = response.data.user;
+      localStorage.setItem('token', JSON.stringify(response.data.token));
+      console.log(localStorage.token);
     });
   }
 
@@ -51,6 +53,28 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
       self.login(userReg);
       this.noMatch = false;
     })
+  }
+
+  this.getUsers = () => {
+    $http({
+      url: this.url + '/users/',
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
+      }
+    }).then( response => {
+      console.log(response);
+      if (response.data.status === 401) {
+        this.error = 'Unauthorized';
+      } else {
+        this.error = "You're logged in to browser session"
+      }
+    })
+  }
+
+  this.logout = () => {
+    localStorage.clear('token');
+    location.reload();
   }
 
 }])
