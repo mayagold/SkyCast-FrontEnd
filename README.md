@@ -17,6 +17,8 @@ This app leverages ![Dark Sky API](https://developer.forecast.io) and ![Google M
 ### User Stories: MVP
 
 * Users should be able to enter in any location and retrieve current and useful information about the weather in that area, as well as a future forecast. 
+  * Approach: Dark Sky API Forecast Request
+    * Format: ```https://api.darksky.net/forecast/[key]/[latitude],[longitude]```
 * User should be able to see relevant information to his/her location or searched area (in chart format, using any visualization library) within a reasonable time period. 
 * User should be able to track his/her search history (user’s search queries should be stored between browser sessions).
 
@@ -65,3 +67,13 @@ This app leverages ![Dark Sky API](https://developer.forecast.io) and ![Google M
 ### Bugs and Unsolved Problems
 
 *to be filled out before submission*
+
+
+### Resources
+
+Tutorials, documentation, and creative inspiration:
+
+* ![Google Developers Documentation: Google Maps Searchbox](https://developers.google.com/maps/documentation/javascript/examples/places-searchbox)
+* ![Tutorial: Building a Weather App with the Dark Sky API](https://webdesign.tutsplus.com/tutorials/building-a-weather-app-with-the-darksky-api--cms-28678)
+* ![Dark Sky API Documentation](https://darksky.net/dev/docs)
+*

@@ -16,6 +16,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Link to Angular Library -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <!-- Link to Google Maps visualization library  -->
+    <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFLkNkNg4qp6NDEQQVxuU2CLFlgl6TyKY&libraries=visualization">
+    </script>
+    <!-- Link to Google Maps places,geometry libraries -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFLkNkNg4qp6NDEQQVxuU2CLFlgl6TyKY&libraries=places,geometry"></script>
+    <!-- Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFLkNkNg4qp6NDEQQVxuU2CLFlgl6TyKY&libraries=places&callback=initAutocomplete" async defer></script>
     <!-- Link to app.js File  -->
     <script type="text/javascript" src="app.js"></script>
     <title>SkyCast: Disrupt the Weather</title>
@@ -50,5 +58,36 @@
       <input type="submit" name="logout" value="Log Out"/>
     </form>
 
+
+
+
+    <!-- Dark Sky API search form -->
+
+    <br/><br/><br/><br/><br/>
+    <h1>Dark Sky API call input form</h1>
+    <form ng-submit="ctrl.getWeather()">
+        <ul>
+          <li>
+            <label for="city-search">City Name</label>
+            <input type="text" id="city-search" placeholder="e.g. Seattle, WA">
+          </li>
+          <li>
+            <label for="latitude">Latitude</label>
+            <input type="text" ng-model="ctrl.latitude" id="latitude" placeholder="e.g. 47.6062" required>
+          </li>
+          <li>
+              <label for="longitude">Longitude</label>
+              <input type="text" ng-model="ctrl.longitude" id="longitude" placeholder="e.g. -122.3321" required>
+          </li>
+        </ul>
+        <button>Get Weather</button>
+    </form>
+
+        <div id="map"></div>
+
+
+  <footer>
+    <a href="https://darksky.net/poweredby/">Powered by Dark Sky</a>
+  </footer>
   </body>
 </html>
