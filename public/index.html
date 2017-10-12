@@ -58,14 +58,11 @@
       <input type="submit" name="logout" value="Log Out"/>
     </form>
 
-
-
-
     <!-- Dark Sky API search form -->
 
     <br/><br/><br/><br/><br/>
     <h1>Dark Sky API call input form</h1>
-    <form ng-submit="ctrl.getWeather()">
+    <form ng-submit="ctrl.getWeather(coords)">
         <ul>
           <li>
             <label for="city-search">City Name</label>
@@ -73,18 +70,27 @@
           </li>
           <li>
             <label for="latitude">Latitude</label>
-            <input type="text" ng-model="ctrl.latitude" id="latitude" placeholder="e.g. 47.6062" required>
+            <input type="text" ng-model="coords.latitude" id="latitude" placeholder="e.g. 47.6062" required>
           </li>
           <li>
               <label for="longitude">Longitude</label>
-              <input type="text" ng-model="ctrl.longitude" id="longitude" placeholder="e.g. -122.3321" required>
+              <input type="text" ng-model="coords.longitude" id="longitude" placeholder="e.g. -122.3321" required>
           </li>
         </ul>
         <button>Get Weather</button>
     </form>
 
-        <div id="map"></div>
+    <div id="map"></div>
 
+    <div id="forecast" ng-show="ctrl.forecast!==''">
+      <p>Current Temperature: {{ctrl.forecast.currently.apparentTemperature}}°C</p>
+      <p>Conditions: {{ctrl.forecast.currently.summary}}</p>
+      <p>Humidity: {{ctrl.forecast.currently.humidity}}%</p>
+      <p>Chance of Precipitation: {{ctrl.forecast.currently.precipProbability}}%</p>
+      <p>This week: {{ctrl.forecast.daily.summary}}</p>
+
+      <button type="button" name="button" ng-show="ctrl.user.username">Save This Location</button>
+    </div>
 
   <footer>
     <a href="https://darksky.net/poweredby/">Powered by Dark Sky</a>
