@@ -1,10 +1,5 @@
 var app = angular.module('skycastApp', []);
 
-app.config(['$qProvider', function ($qProvider) {
-    $qProvider.errorOnUnhandledRejections(false);
-}]);
-
-
 ////////////////////
 // GOOGLE MAPS
 // Resource: https://developers.google.com/maps/documentation/javascript/examples/places-searchbox
