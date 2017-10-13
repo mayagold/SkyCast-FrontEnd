@@ -106,11 +106,18 @@
         <p class="humidity"> {{ctrl.forecast.currently.humidity}}% Humidity</p>
         <p class="precipitation"> {{ctrl.forecast.currently.precipProbability}}% Chance of Precipitation</p><br/>
         <p class="realtime"><strong>Expect {{ctrl.forecast.daily.summary}}</p>
-        <button class="btn" type="button" name="button" ng-show="ctrl.user.username">Save This Location</button>
+        <button class="btn" type="button" name="button" ng-show="ctrl.user.username" ng-click="ctrl.saveLocation(lat, lng, location)">Save This Location</button>
       </div>
     </div>
 
+    <a href="#" ng-click="userLocationsPage=true">My Forecasts</a>
 
+    <div class="user-locations" ng-show="userLocationsPage===true">
+      <div class="locations-data" ng-repeat="location in ctrl.myLocations">
+        <p>{{location.location_name}}</p>
+      </div>
+      <span ng-click="userLocationsPage=false">&times</span>
+    </div>
     <!-- <table class="table table-striped table-hover table-condensed table-responsive">
       <tr>
         <th>Location</th>
@@ -142,5 +149,7 @@
     <a href="https://darksky.net/poweredby/"><img src="images/poweredby-oneline-darkbackground.png" alt="Powered by Dark Sky" id="dark-sky"></a>
 
   </footer>
+
+
   </body>
 </html>
