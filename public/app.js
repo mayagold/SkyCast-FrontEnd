@@ -341,7 +341,8 @@ function initAutocomplete() {
 app.controller('mainController', ['$http', '$scope', '$filter', function($http, $scope, $filter) {
   // Declare variables
   let self = this;
-  this.url      = 'http://localhost:3000';
+  // this.url      = 'http://localhost:3000';
+  this.url      = 'https://skycast-api-maya.herokuapp.com';
   this.user     = {};
   this.noMatch  = false;
   this.forecast = '';
