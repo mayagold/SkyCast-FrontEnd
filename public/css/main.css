@@ -162,7 +162,6 @@ body {
   body .modal-content {
     background-color: rgba(0, 0, 0, 0.6) !important;
     position: fixed;
-    /* 15% from the top and centered */
     left: 0 !important;
     top: 0 !important;
     width: 100% !important;
@@ -209,5 +208,41 @@ body {
     margin-bottom: 0; }
   body .small {
     margin-top: 0 !important; }
+  body .locations-data {
+    background: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    font-weight: lighter;
+    left: 0;
+    top: 0;
+    width: 100%;
+    min-height: 100%;
+    font-size: 14px;
+    text-align: center;
+    color: whitesmoke; }
+    body .locations-data .location {
+      text-align: left;
+      padding: 36px; }
+      body .locations-data .location .name {
+        font-family: "Raleway", sans-serif;
+        font-size: 18px; }
+      body .locations-data .location .temp {
+        font-size: 36px;
+        font-weight: normal;
+        font-family: "Roboto Condensed", sans-serif; }
+      body .locations-data .location .conditions {
+        font-size: 18px;
+        font-weight: normal;
+        font-family: "Roboto Condensed", sans-serif;
+        text-transform: uppercase; }
+      body .locations-data .location .realtime {
+        font-family: "Roboto Condensed", sans-serif;
+        text-transform: uppercase; }
+    body .locations-data span {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      font-weight: 100;
+      font-size: 66px;
+      color: whitesmoke; }
 
 /*# sourceMappingURL=main.css.map */

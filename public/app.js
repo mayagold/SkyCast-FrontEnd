@@ -350,6 +350,8 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
   this.lng = 0;
   this.location = '';
   this.myLocations = [];
+  this.myForecast = {};
+  this.newLocation = {};
   // GET WEATHER
   // Store the input values of searched location in variables so that they can be referenced outside this function
   // GET request to Dark Sky API returns forecast
@@ -371,11 +373,6 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
       this.forecast = response.data;
       // Get the current skycon value
       let currentIcon = response.data.currently.icon;
-      // console.log(currentIcon);
-      // console.log(this.lat, "lat");
-      // console.log(this.lng, "lng");
-      // console.log(this.location, "location");
-      // Set the skycon
       self.setSkycon(currentIcon);
     });
   }
@@ -435,6 +432,7 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
 
   // Get the user's saved locations upon login
   this.getLocations = () => {
+    this.myLocations = [];
     $http({
       method: 'GET',
       url: this.url + '/locations/',
@@ -442,10 +440,27 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
       console.log(response);
       for (var i=0; i<response.data.length; i++) {
         if (response.data[i].user_id === this.user.id) {
-          this.myLocations.unshift(response.data[i]);
+          newLocation = response.data[i];
+          lat = response.data[i].lat;
+          lng = response.data[i].lng;
+          this.getForecast(lat,lng, newLocation);
         }
       }
     })
+  }
+
+  this.getForecast = (lat,lng, newLocation) => {
+    $http({
+      method: 'GET',
+      url: 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/a9d279d680c92a498e132e03592ee873' + '/' + lat + ',' + lng + '?units=auto',
+      headers: { api_key: 'DARK_SKY_API_KEY' },
+    }).then( response => {
+      console.log(response);
+      let newForecast = response.data;
+      newLocation.forecast = newForecast;
+      console.log("should this location to array: ", newLocation);
+    });
+    this.myLocations.unshift(newLocation);
   }
 
   // LOGIN
@@ -463,7 +478,7 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
       localStorage.setItem('token', JSON.stringify(response.data.token));
       console.log(localStorage.token);
       this.home = false;
-      this.getLocations();
+      // this.getLocations();
     });
   }
 
