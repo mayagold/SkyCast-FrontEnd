@@ -1,0 +1,268 @@
+$breakpoint: 800px;
+$sky-grey: #8a8a8a;
+
+#forecast-container {
+  height: 54%;
+  width: 100%;
+  position: relative;
+  #forecast {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 66px;
+    padding-right: 12px;
+    color: whitesmoke;
+    text-align: right;
+    /*font-size: 24px;*/
+    background: rgba(0,0,0,.7);
+    letter-spacing: .1em;
+    canvas {
+      height: 30%;
+      /* width: 30%; */
+      position: absolute;
+      top: 20%;
+      left: 0;
+      padding: 0;
+    }
+    .temp {
+      font-size: 36px;
+      font-weight: normal;
+      font-family: "Roboto Condensed", sans-serif;
+    }
+    .conditions {
+      font-size: 18px;
+      font-weight: normal;
+      font-family: "Roboto Condensed", sans-serif;
+      text-transform: uppercase;
+    }
+  }
+}
+
+/*Google Maps Styling*/
+
+#map {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#description {
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+#infowindow-content .title {
+  font-weight: bold;
+}
+
+#infowindow-content {
+  display: none;
+}
+
+#map #infowindow-content {
+  display: inline;
+}
+
+.pac-card {
+  margin: 10px 10px 0 0;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  font-family: Roboto;
+}
+
+#pac-container {
+  padding-bottom: 12px;
+  margin-right: 12px;
+}
+
+.pac-controls {
+  display: inline-block;
+  padding: 5px 11px;
+}
+
+.pac-controls label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 400px;
+}
+
+#pac-input:focus {
+  border-color: #b0d5ce;
+}
+
+#title {
+  color: #fff;
+  background-color: #b0d5ce;
+  font-size: 25px;
+  font-weight: 500;
+  padding: 6px 12px;
+}
+#target {
+  width: 345px;
+}
+
+/* main styling */
+
+body {
+  background: rgba(0,0,0,.9) !important;
+  /*text-align: center !important;*/
+  color: whitesmoke !important;
+  font-weight: lighter;
+  h1 {
+    color: whitesmoke !important;
+    letter-spacing: .1em !important;
+    font-size: 44px !important;
+    font-family: "Raleway", sans-serif !important;
+    text-transform: uppercase !important;
+  }
+  button {
+    font-family: "Roboto Condensed", sans-serif !important;
+    text-transform: uppercase !important;
+  }
+
+  #weather-form {
+    margin: 0 auto;
+    text-align: center !important;
+    padding: 24px;
+    label {
+      font-weight: normal !important;
+      font-size: 18px !important;
+      color: #8a8a8a !important;
+    }
+    input {
+      margin: 12px auto !important;
+      color: #3d3d3d !important;
+    }
+  }
+
+  footer {
+    position: relative !important;
+    width: 100% !important;
+    .user-auth-buttons {
+      position: absolute;
+      left: 10px;
+      width: 50%;
+      padding-top: 9px;
+    }
+    #dark-sky {
+      width: 200px;
+      position: absolute;
+      right: 0;
+    }
+  }
+
+  // Modal Styling
+
+  .modal {
+    display: block !important;
+    position: fixed !important;
+    z-index: 1000 !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: auto !important;
+    background-image: url('../images/static.png')
+  }
+
+  .modal-content {
+    background-color: rgba(0,0,0,.6) !important;
+    position: fixed; /* 15% from the top and centered */
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 20px !important;
+    font-size: 18px;
+    text-align: center;
+    color: whitesmoke !important;
+    * {
+      padding: 36px
+    }
+  }
+
+  .btn {
+    background: none !important;
+    border: none !important;
+  }
+
+  .login-modal > span, .register-modal > span {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-weight: bold;
+    font-size: 66px;
+    color: #616161;
+  }
+
+  .login-modal > input, .register-modal > input {
+    background: rgba(0,0,0,.8);
+    padding: 18px;
+    margin: 18px;
+    border-radius: 5px;
+    border: 2px solid #757575;
+  }
+
+  .btn:hover {
+    color: #757575 !important
+  }
+
+  .login-modal, .register-modal {
+    padding-top: 100px;
+    position: absolute;
+    background: rgba(0,0,0,.7);
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  .login-modal > .submit, .register-modal > .submit {
+    font-family: "Roboto Condensed", sans-serif;
+    text-transform: uppercase;
+    border: none;
+    background: none;
+    margin-bottom: 0;
+  }
+
+  .small {
+    margin-top: 0 !important;
+  }
+
+}
+
+
+// Styling for Desktop
+
+@media only screen and ( min-width: 800px ) {
+
+  
+
+}
