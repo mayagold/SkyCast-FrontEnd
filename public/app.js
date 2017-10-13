@@ -1,5 +1,7 @@
 var app = angular.module('skycastApp', []);
 
+
+
 ////////////////////
 // GOOGLE MAPS
 // Resource: https://developers.google.com/maps/documentation/javascript/examples/places-searchbox
@@ -13,7 +15,270 @@ function initAutocomplete() {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 47.6062, lng: -122.3321},
     zoom: 11,
-    mapTypeId: 'satellite'
+    mapTypeId: 'roadmap',
+    styles: [
+  {
+    "elementType": "geometry",
+    "stylers": [
+      // Exported from https://mapstyle.withgoogle.com/
+      {
+        "color": "#212121"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.icon",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#757575"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#212121"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#757575"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.country",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#9e9e9e"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.locality",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#bdbdbd"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.man_made",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.natural",
+    "stylers": [
+      {
+        "color": "#963f42"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#757575"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.business",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#181818"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#616161"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#1b1b1b"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#2c2c2c"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "labels.icon",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#8a8a8a"
+      }
+    ]
+  },
+  {
+    "featureType": "road.arterial",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#373737"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#3c3c3c"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway.controlled_access",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#4e4e4e"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#616161"
+      }
+    ]
+  },
+  {
+    "featureType": "transit",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "transit",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#757575"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#000000"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#3d3d3d"
+      }
+    ]
+  }
+]
   });
   // Grab the user's input from the city-search input field. Store it in the input variable.
   input = document.getElementById('city-search');
@@ -36,6 +301,7 @@ function initAutocomplete() {
 
     document.getElementById('latitude').value = places[0].geometry.location.lat();
     document.getElementById('longitude').value = places[0].geometry.location.lng();
+
     // Clear out the old markers.
     markers.forEach(function(marker) {
       marker.setMap(null);
@@ -70,6 +336,8 @@ function initAutocomplete() {
     });
     map.fitBounds(bounds);
   });
+
+
 }
 
 
@@ -91,13 +359,13 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
   this.forecast = '';
 
   this.getWeather = () => {
-    // grab the latitude and longitude values
     let lat = document.getElementById('latitude').value;
     let long = document.getElementById('longitude').value;
     // make the api call
-    console.log('https://api.darksky.net/forecast/a9d279d680c92a498e132e03592ee873' + '/' + lat + ',' + long + '?units=auto');
+    // console.log('https://api.darksky.net/forecast/a9d279d680c92a498e132e03592ee873' + '/' + lat + ',' + long + '?units=auto');
     $http({
       method: 'GET',
+      // url: this.url + '/forecasts/index',
       url: 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/a9d279d680c92a498e132e03592ee873' + '/' + lat + ',' + long + '?units=auto',
       headers: { api_key: 'DARK_SKY_API_KEY' },
     }).then( response => {

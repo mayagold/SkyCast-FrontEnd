@@ -16,84 +16,107 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Link to Angular Library -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
-    <!-- Link to Google Maps visualization library  -->
-    <script type="text/javascript"
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFLkNkNg4qp6NDEQQVxuU2CLFlgl6TyKY&libraries=visualization">
-    </script>
-    <!-- Link to Google Maps places,geometry libraries -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFLkNkNg4qp6NDEQQVxuU2CLFlgl6TyKY&libraries=places,geometry"></script>
-    <!-- Google Maps -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFLkNkNg4qp6NDEQQVxuU2CLFlgl6TyKY&libraries=places&callback=initAutocomplete" async defer></script>
+    <!-- Link to Google Maps places,geometry,viz libraries, and autocomplete -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFLkNkNg4qp6NDEQQVxuU2CLFlgl6TyKY&libraries=visualization,places,geometry&callback=initAutocomplete" async defer></script>
     <!-- Link to app.js File  -->
     <script type="text/javascript" src="app.js"></script>
-    <title>SkyCast: Disrupt the Weather</title>
+    <title>SkyMap: Changing with the Weather</title>
   </head>
   <!-- DOM -->
   <body ng-controller="mainController as ctrl">
-    hello
-    <h1>{{ctrl.testing}}</h1>
 
-    <h2>Logged in user's username: {{ctrl.user.username}}</h2>
+    <!-- <div class="page-header">
+      <p>{{ctrl.user.username}}</p>
 
-    <h4 ng-click="ctrl.getUsers()">Click to view authorized content</h4>
-    <div>{{ctrl.error}}</div>
-    <div ng-show="localStorage.token">Authorized Content
-    </div>
 
-    <form ng-submit="ctrl.login(userPass)">
+      <h1 class="text-center">SkyMap <small></small></h1>
+    </div> -->
+
+
+
+
+    <form ng-show="showLogin===true" ng-submit="ctrl.login(userPass)" class="well">
       <input type="text" ng-model="userPass.username" placeholder="username"/>
       <input type="password" ng-model="userPass.password" placeholder="password"/>
       <input type="submit"/>
+      <p ng-click="showLogin=false">Close</p>
     </form>
 
-    <form ng-submit="ctrl.register(userReg)">
+    <form ng-show="showReg===true" ng-submit="ctrl.register(userReg)" class="well">
       <input type="text" ng-model="userReg.username" placeholder="username"/>
       <input type="password" ng-model="userReg.password" placeholder="password"/>
       <input type="confirmPassword" ng-model="userReg.confirmPassword" placeholder="confirm password"/>
       <input type="submit"/>
-      <p ng-if="ctrl.noMatch===true">Passwords do not match. Please reenter and confirm your password.</p>
+      <p ng-click="showReg=false">Close</p>
+      <p ng-if="ctrl.noMatch===true" class="text-danger">Passwords do not match. Please reenter and confirm your password.</p>
     </form>
 
-    <form ng-submit="ctrl.logout()">
-      <input type="submit" name="logout" value="Log Out"/>
-    </form>
 
     <!-- Dark Sky API search form -->
 
-    <br/><br/><br/><br/><br/>
-    <h1>Dark Sky API call input form</h1>
-    <form ng-submit="ctrl.getWeather(coords)">
-        <ul>
-          <li>
+
+    <form ng-submit="ctrl.getWeather()" class="form" id="weather-form"><br/>
+        <div class="form-group">
+          <name>
             <label for="city-search">City Name</label>
-            <input type="text" id="city-search" placeholder="e.g. Seattle, WA">
-          </li>
-          <li>
+            <input type="text" id="city-search" placeholder="e.g. Seattle, WA" class="input-group input-lg">
+          </name>
+          <latitude>
             <label for="latitude">Latitude</label>
-            <input type="text" ng-model="coords.latitude" id="latitude" placeholder="e.g. 47.6062" required>
-          </li>
-          <li>
+            <input name="latitude" type="text" ng-model="coords.latitude" id="latitude" placeholder="e.g. 47.6062" value="" class="input-group input-lg" required>
+          </latitude>
+          <longitude>
               <label for="longitude">Longitude</label>
-              <input type="text" ng-model="coords.longitude" id="longitude" placeholder="e.g. -122.3321" required>
-          </li>
-        </ul>
+              <input name="longitude" type="text" ng-model="coords.longitude" id="longitude" placeholder="e.g. -122.3321" class="input-group input-lg" value="" required>
+          </longitude>
+        </div>
         <button>Get Weather</button>
     </form>
 
-    <div id="map"></div>
 
-    <div id="forecast" ng-show="ctrl.forecast!==''">
-      <p>Current Temperature: {{ctrl.forecast.currently.apparentTemperature}}°C</p>
-      <p>Conditions: {{ctrl.forecast.currently.summary}}</p>
-      <p>Humidity: {{ctrl.forecast.currently.humidity}}%</p>
-      <p>Chance of Precipitation: {{ctrl.forecast.currently.precipProbability}}%</p>
-      <p>This week: {{ctrl.forecast.daily.summary}}</p>
-
-      <button type="button" name="button" ng-show="ctrl.user.username">Save This Location</button>
+    <div id="forecast-container">
+      <div id="map"></div>
+      <div id="forecast" ng-show="ctrl.forecast!==''" >
+        <p>Current Temperature: {{ctrl.forecast.currently.apparentTemperature}}°C</p>
+        <p>Conditions: {{ctrl.forecast.currently.summary}}</p>
+        <p>Humidity: {{ctrl.forecast.currently.humidity}}%</p>
+        <p>Chance of Precipitation: {{ctrl.forecast.currently.precipProbability}}%</p>
+        <p>This week: {{ctrl.forecast.daily.summary}}</p>
+      </div>
     </div>
 
+      <button type="button" name="button" ng-show="ctrl.user.username">Save This Location</button>
+
+
+
+    <!-- <table class="table table-striped table-hover table-condensed table-responsive">
+      <tr>
+        <th>Location</th>
+        <th>Current Temp</th>
+        <th>Forecast</th>
+      </tr>
+      <tr>
+        <td>Filler</td>
+        <td>Filler</td>
+        <td>Filler</td>
+      </tr>
+      <tr>
+        <td>Filler</td>
+        <td>Filler</td>
+        <td>Filler</td>
+      </tr>
+
+    </table> -->
+
   <footer>
-    <a href="https://darksky.net/poweredby/">Powered by Dark Sky</a>
+    <div name="userAuthButtons" class="user-auth-buttons">
+      <button ng-click="showLogin=true">Log In</button>
+      <button ng-click="showReg=true">Register</button>
+      <button ng-click="ctrl.logout()" ng-show="ctrl.user.username">
+        Log Out
+      </button>
+    </div>
+    <a href="https://darksky.net/poweredby/"><img src="images/poweredby-oneline-darkbackground.png" alt="Powered by Dark Sky" id="dark-sky"></a>
   </footer>
   </body>
 </html>

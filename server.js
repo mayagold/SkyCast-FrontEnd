@@ -4,7 +4,7 @@ const express     = require('express');
 const app         = express();
 const bodyParser  = require('body-parser');
 const PORT        = process.env.PORT || 2045;
-
+const darksky     = process.env.DARK_SKY_API_KEY;
 
 // MIDDLEWARE
 
