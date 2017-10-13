@@ -357,6 +357,7 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
   this.user     = {};
   this.noMatch  = false;
   this.forecast = '';
+  this.home = true;
 
   this.getWeather = () => {
     let lat = document.getElementById('latitude').value;
@@ -371,7 +372,36 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
     }).then( response => {
       console.log(response);
       this.forecast = response.data;
+      let currentIcon = response.data.currently.icon;
+      console.log(currentIcon);
+      self.setSkycon(currentIcon);
     });
+  }
+
+  this.setSkycon = (currentIcon) => {
+    let skycon = new Skycons({"color": "whitesmoke"});
+    if (currentIcon==="partly-cloudy-night"){
+      skycon.set("skycon", Skycons.PARTLY_CLOUDY_NIGHT);
+    } else if (currentIcon==="clear-day"){
+      skycon.set("skycon", Skycons.CLEAR_DAY);
+    } else if (currentIcon==="clear-night"){
+      skycon.set("skycon", Skycons.CLEAR_NIGHT);
+    } else if (currentIcon==="partly-cloudy-day"){
+      skycon.set("skycon", Skycons.PARTLY_CLOUDY_DAY);
+    } else if (currentIcon==="cloudy"){
+      skycon.set("skycon", Skycons.CLOUDY);
+    } else if (currentIcon==="rain"){
+      skycon.set("skycon", Skycons.RAIN);
+    } else if (currentIcon==="sleet"){
+      skycon.set("skycon", Skycons.SLEET);
+    } else if (currentIcon==="snow"){
+      skycon.set("skycon", Skycons.SNOW);
+    } else if (currentIcon==="wind"){
+      skycon.set("skycon", Skycons.WIND);
+    } else if (currentIcon==="fog"){
+      skycon.set("skycon", Skycons.FOG);
+    }
+    skycon.play();
   }
 
   // User Login Route
@@ -388,6 +418,7 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
       this.user = response.data.user;
       localStorage.setItem('token', JSON.stringify(response.data.token));
       console.log(localStorage.token);
+      this.home = false;
     });
   }
 
