@@ -31,6 +31,9 @@
       font-weight: normal;
       font-family: "Roboto Condensed", sans-serif;
       text-transform: uppercase; }
+    #forecast-container #forecast .realtime {
+      font-family: "Roboto Condensed", sans-serif;
+      text-transform: uppercase; }
 
 /*Google Maps Styling*/
 #map {
@@ -164,12 +167,14 @@ body {
     top: 0 !important;
     width: 100% !important;
     height: 100% !important;
-    padding: 20px !important;
+    padding: 36px !important;
     font-size: 18px;
     text-align: center;
     color: whitesmoke !important; }
+    body .modal-content p {
+      padding: 80px 0; }
     body .modal-content * {
-      padding: 36px; }
+      padding: 12px; }
   body .btn {
     background: none !important;
     border: none !important; }
