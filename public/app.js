@@ -1,14 +1,13 @@
 var app = angular.module('skycastApp', []);
 var input = '';
 
+// Load Google Charts
 google.charts.load("current", {packages:["corechart"]});
 google.charts.setOnLoadCallback(app.drawChart);
-
 
 ////////////////////
 // GOOGLE MAPS
 // Resource: https://developers.google.com/maps/documentation/javascript/examples/places-searchbox
-// This code allows user to search for a specific city using Google Maps and retrieve its lat/lng coordinates. It also auto-updates a google maps view of that location.
 ////////////////////
 function initAutocomplete() {
   // Render map on page: default to Seattle.
@@ -280,11 +279,11 @@ function initAutocomplete() {
       }
     ]
   });
-  // Grab the user's input from the city-search input field. Store it in the input variable.
+  // Grab input from city-search input field. Store in input variable.
   input = document.getElementById('city-search');
-  // Create the Google Maps search box and enter the input into the searchBox.
+  // Create the Google Maps search box. Autofill input.
   var searchBox = new google.maps.places.SearchBox(input);
-  // Bias the SearchBox results towards current map's viewport.
+  // Bias SearchBox results towards current map's viewport.
   map.addListener('bounds_changed', function() {
     searchBox.setBounds(map.getBounds());
   });
@@ -297,11 +296,9 @@ function initAutocomplete() {
     if (places.length == 0) {
       return;
     }
-    // Auto-fill the lat/long input fields based on the city searched. (This still has a little bug. If you search a non-specific location e.g. "Indian Restaurant" it will display a bunch of markers on the map and autofill the lat/long coordinates for the first indexed.)
-
+    // Auto-fill the lat/long input fields based on the city searched. (This has a bug. If you search a non-specific location e.g. "Indian Restaurant" it will display a bunch of markers on the map and autofill the lat/long coordinates for the first indexed.)
     document.getElementById('latitude').value = places[0].geometry.location.lat();
     document.getElementById('longitude').value = places[0].geometry.location.lng();
-
     // Clear out the old markers.
     markers.forEach(function(marker) {
       marker.setMap(null);
@@ -338,14 +335,12 @@ function initAutocomplete() {
   });
 }
 
-
 /////////////////////////
-// Main Controller
+// Angular Controller
 /////////////////////////
-app.controller('mainController', ['$http', '$scope', '$filter', function($http, $scope, $filter) {
+app.controller('mainController', ['$http', function($http) {
   // Declare variables
   let self = this;
-  // this.url      = 'http://localhost:3000';
   this.url      = 'https://skycast-api-maya.herokuapp.com';
   this.user     = {};
   this.noMatch  = false;
@@ -357,6 +352,7 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
   this.myLocations = [];
   this.myForecast = {};
   this.newLocation = {};
+  // Google Chart variables to load dynamic data into chart
   this.todayTemp = 0;
   this.twoDaysAgoTemp = 0;
   this.yesterdayTemp = 0;
@@ -367,21 +363,18 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
   this.tomorrowPrecip = 0;
   this.showChart = false;
 
-
   // GET WEATHER
-  // Store the input values of searched location in variables so that they can be referenced outside this function
   // GET request to Dark Sky API returns forecast
   this.getWeather = () => {
+    // Get latitude and longitude from user input
     lat = document.getElementById('latitude').value;
     long = document.getElementById('longitude').value;
-    // make the api call
+    // Save data in controller variables
     this.lat = document.getElementById('latitude').value;
     this.lng = document.getElementById('longitude').value;
     this.location = document.getElementById('city-search').value;
-    // console.log('https://api.darksky.net/forecast/a9d279d680c92a498e132e03592ee873' + '/' + lat + ',' + long + '?units=auto');
     $http({
       method: 'GET',
-      // url: this.url + '/forecasts/index',
       url: 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/a9d279d680c92a498e132e03592ee873' + '/' + lat + ',' + long + '?units=auto',
       headers: { api_key: 'DARK_SKY_API_KEY' },
     }).then( response => {
@@ -392,7 +385,6 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
       self.setSkycon(currentIcon);
     });
   }
-
   // Play whichever skycon is referenced in the forecast.
   this.setSkycon = (currentIcon) => {
     let skycon = new Skycons({"color": "whitesmoke"});
@@ -425,7 +417,6 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
   // Sends POST request to server
   // Saves the most recently forecasted location with latitude, longitude, location name, and user's ID
   this.saveLocation = (lat, long, location) => {
-    // console.log('called saveLocation()');
     $http({
       method: 'POST',
       url: this.url + '/locations/',
@@ -438,10 +429,6 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
         }
       }
     }).then( response => {
-      // console.log('processed');
-      // console.log(this.lat, "lat");
-      // console.log(this.lng, "lng");
-      // console.log(this.location, "location");
       console.log(response);
       this.myLocations.push(response.data);
     } )
@@ -475,14 +462,12 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
       console.log(response);
       let newForecast = response.data;
       newLocation.forecast = newForecast;
-      console.log("should this location to array: ", newLocation);
     });
     this.myLocations.unshift(newLocation);
   }
 
   // Delete Route for User's Saved Locations
   this.forgetLocation = (location) => {
-    console.log(location, "Location");
     let id = location.id;
     let index = this.myLocations.indexOf(location);
     $http({
@@ -497,11 +482,13 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
   this.getTrends = () => {
     let lat = this.lat;
     let lng = this.lng;
-    // 24 hours ago
+    // Calculate unix times for chart dates
     let yesterday = Math.round((new Date()).getTime() / 1000) - 86400;
     let twoDaysAgo = Math.round((new Date()).getTime() / 1000) - 172800;
     let today = Math.round((new Date()).getTime() / 1000);
     let tomorrow = Math.round((new Date()).getTime() / 1000) + 86400;
+    // Time Machine request for each date
+    // Save temp and precip data in controller variables
     $http({
       method: 'GET',
       url: 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/a9d279d680c92a498e132e03592ee873' + '/' + lat + ',' + long + ',' + yesterday,
@@ -541,8 +528,8 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
   }
 
   this.drawChart = () => {
+    // Create google chart displaying trends
     this.showChart=true;
-    console.log(this.twoDaysAgoTemp, "should have a value");
     let title = this.location;
     var data = google.visualization.arrayToDataTable([
       ["Date", "°C", "% Precipitation"],
@@ -566,14 +553,13 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
           'opacity': 100
         },
       }
-
     };
     var chart = new google.visualization.LineChart(document.getElementById("weather-chart"));
     chart.draw(view, options);
   }
 
   ///////////////////////////
-  // User Authorization
+  // User Authentication
   ///////////////////////////
 
   // LOGIN
@@ -591,10 +577,8 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
       localStorage.setItem('token', JSON.stringify(response.data.token));
       console.log(localStorage.token);
       this.home = false;
-      // this.getLocations();
     });
   }
-
   // REGISTER
   this.register = (userReg) => {
     if (userReg.password === userReg.confirmPassword) {
@@ -602,7 +586,7 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
     } else {
       return this.noMatch = true;
     }
-
+    // Create new user and log em in
     $http({
       method: 'POST',
       url: this.url + '/users/',
@@ -616,8 +600,7 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
       this.noMatch = false;
     })
   }
-
-  // AUTHORIZATION
+  // AUTHORIZATION (not called anywhere ... yet)
   this.getUsers = () => {
     $http({
       url: this.url + '/users/',
@@ -634,7 +617,6 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
       }
     })
   }
-
   // LOGOUT
   this.logout = () => {
     localStorage.clear('token');
