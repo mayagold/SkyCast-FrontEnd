@@ -23,7 +23,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    padding-top: 36px;
+    padding-top: 6px;
     padding-right: 12px;
     color: whitesmoke;
     text-align: right;
@@ -178,7 +178,7 @@ body {
       right: 0; }
   body .modal {
     display: block !important;
-    position: fixed !important;
+    position: absolute !important;
     z-index: 1000 !important;
     left: 0 !important;
     top: 0 !important;
@@ -191,7 +191,7 @@ body {
     opacity: 0; }
   body .modal-content {
     background-color: rgba(0, 0, 0, 0.6) !important;
-    position: fixed;
+    position: absolute;
     left: 0 !important;
     top: 0 !important;
     width: 100% !important;
