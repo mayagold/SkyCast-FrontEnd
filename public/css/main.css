@@ -33,6 +33,8 @@
     -webkit-animation: fadeIn .5s ease-in 1 forwards;
     animation: fadeIn .5s ease-in 1 forwards;
     opacity: 0; }
+    #forecast-container #forecast button {
+      color: #8a8a8a; }
     #forecast-container #forecast p {
       margin: 0; }
     #forecast-container #forecast canvas {

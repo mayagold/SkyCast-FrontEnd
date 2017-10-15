@@ -50,7 +50,9 @@ $sky-grey: #8a8a8a;
     -webkit-animation: fadeIn .5s ease-in 1 forwards;
     animation: fadeIn .5s ease-in 1 forwards;
     opacity: 0;
-
+    button {
+      color: #8a8a8a;
+    }
     p {
       margin: 0;
     }
