@@ -23,7 +23,7 @@ GitHub:
 
 ### Summary
 
-This app leverages ![Dark Sky API](https://developer.forecast.io) and ![Google Maps API](https://developers.google.com/maps), allowing users to retrieve current as well as historic weather data for any location for which Google Maps has the correct latitude and longitude coordinates.
+This app leverages [Dark Sky API](https://developer.forecast.io) and [Google Maps API](https://developers.google.com/maps), allowing users to retrieve current as well as historic weather data for any location for which Google Maps has the correct latitude and longitude coordinates.
 
 ### User Stories: MVP
 
@@ -96,9 +96,9 @@ This app leverages ![Dark Sky API](https://developer.forecast.io) and ![Google M
 
 Tutorials, documentation, sources, and creative inspiration:
 
-* ![Google Developers Documentation: Google Maps Searchbox](https://developers.google.com/maps/documentation/javascript/examples/places-searchbox)
-* ![Tutorial: Building a Weather App with the Dark Sky API](https://webdesign.tutsplus.com/tutorials/building-a-weather-app-with-the-darksky-api--cms-28678)
-* ![Dark Sky API Documentation](https://darksky.net/dev/docs)
-* ![Google Maps APIs Styling Wizard](https://mapstyle.withgoogle.com/)
-* ![Skycons](https://darkskyapp.github.io/skycons/)
-* ![Google Charts](https://developers.google.com/chart/)
+* [Google Developers Documentation: Google Maps Searchbox](https://developers.google.com/maps/documentation/javascript/examples/places-searchbox)
+* [Tutorial: Building a Weather App with the Dark Sky API](https://webdesign.tutsplus.com/tutorials/building-a-weather-app-with-the-darksky-api--cms-28678)
+* [Dark Sky API Documentation](https://darksky.net/dev/docs)
+* [Google Maps APIs Styling Wizard](https://mapstyle.withgoogle.com/)
+* [Skycons](https://darkskyapp.github.io/skycons/)
+* [Google Charts](https://developers.google.com/chart/)
