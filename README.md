@@ -5,10 +5,11 @@
 
 # SkyMap: Real Forecasts in Real Time
 
+![SkyMap](public/images/screen_capture_1.png)
 
 ### Live Site
 
-Hosted on Heroku.
+Hosted on Heroku:
 
 * Front End: https://skycast-maya.herokuapp.com/
 * Back End: http://skycast-api-maya.herokuapp.com/
@@ -25,6 +26,8 @@ GitHub:
 This app leverages ![Dark Sky API](https://developer.forecast.io) and ![Google Maps API](https://developers.google.com/maps), allowing users to retrieve current as well as historic weather data for any location for which Google Maps has the correct latitude and longitude coordinates.
 
 ### User Stories: MVP
+
+![Forecast](public/images/screen_capture_2.png)
 
 * Users should be able to enter in any location and retrieve current and useful information about the weather in that area, as well as a future forecast. 
   * User enters location into Google Maps Search Box
@@ -68,8 +71,10 @@ This app leverages ![Dark Sky API](https://developer.forecast.io) and ![Google M
 
 ### Process
 
+![Trello](public/images/trello.png)
+
 1. Wireframes
-1. ![Trello board](https://trello.com/b/GqW5zyFd/skycast-weather-app)
+1. Trello
 1. Step 1: Skeleton content (front and back end)
 1. Step 2: Basic CSS formatting of skeleton content
 1. User Authentication (JSON Web Tokens)
