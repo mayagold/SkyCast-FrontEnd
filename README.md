@@ -28,10 +28,12 @@ This app leverages ![Dark Sky API](https://developer.forecast.io) and ![Google M
 * Frontend
   * JavaScript (AngularJS)
   * CSS Bootstrap
+  * Google Charts Visualization Tool
 * Backend
   * JWT
   * Ruby on Rails
 * Hosting Platform: Heroku
+* Third Party APIs: Google Maps, Dark Sky
 
 ### Design Focus
 

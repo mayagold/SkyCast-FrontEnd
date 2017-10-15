@@ -1,28 +1,64 @@
 $breakpoint: 950px;
 $sky-grey: #8a8a8a;
 
+@-webkit-keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+.logo {
+  display: none;
+}
+
 #forecast-container {
   height: 54%;
   width: 100%;
   position: relative;
+
   #forecast, {
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    padding-top: 66px;
+    padding-top: 36px;
     padding-right: 12px;
     color: whitesmoke;
     text-align: right;
     /*font-size: 24px;*/
     background: rgba(0,0,0,.7);
     letter-spacing: .1em;
+    -webkit-animation: fadeIn .5s ease-in 1 forwards;
+    animation: fadeIn .5s ease-in 1 forwards;
+    opacity: 0;
+
+    p {
+      margin: 0;
+    }
     canvas {
       height: 30%;
       /* width: 30%; */
       position: absolute;
-      top: 20%;
+      top: 8%;
       left: 0;
       padding: 0;
     }
@@ -36,6 +72,7 @@ $sky-grey: #8a8a8a;
       font-weight: normal;
       font-family: "Roboto Condensed", sans-serif;
       text-transform: uppercase;
+      margin: 0;
     }
     .realtime {
       font-family: "Roboto Condensed", sans-serif !important;
@@ -54,6 +91,9 @@ $sky-grey: #8a8a8a;
   top: 0;
   left: 0;
   z-index: -1;
+  -webkit-animation: fadeIn .5s ease-in 1 forwards;
+  animation: fadeIn .5s ease-in 1 forwards;
+  opacity: 0;
 }
 /* Optional: Makes the sample page fill the window. */
 html, body {
@@ -62,7 +102,7 @@ html, body {
   padding: 0;
 }
 #description {
-  font-family: Roboto;
+  // font-family: Roboto;
   font-size: 15px;
   font-weight: 300;
 }
@@ -108,7 +148,7 @@ html, body {
 
 #pac-input {
   background-color: #fff;
-  font-family: Roboto;
+  // font-family: Roboto;
   font-size: 15px;
   font-weight: 300;
   margin-left: 12px;
@@ -139,6 +179,9 @@ body {
   /*text-align: center !important;*/
   color: whitesmoke !important;
   font-weight: lighter;
+  -webkit-animation: fadeIn .5s ease-in 1 forwards;
+  animation: fadeIn .5s ease-in 1 forwards;
+  opacity: 0;
   h1 {
     color: whitesmoke !important;
     letter-spacing: .1em !important;
@@ -196,7 +239,10 @@ body {
     width: 100% !important;
     height: 100% !important;
     overflow: auto !important;
-    background-image: url('../images/static.png')
+    background-image: url('../images/static.png');
+    -webkit-animation: fadeIn .5s ease-in 1 forwards;
+    animation: fadeIn .5s ease-in 1 forwards;
+    opacity: 0;
   }
 
   .modal-content {
@@ -223,7 +269,7 @@ body {
     border: none !important;
   }
 
-  .login-modal > span, .register-modal > span {
+  .login-modal > span, .register-modal > span, .chart-container > span {
     position: absolute;
     top: 0;
     right: 10px;
@@ -253,6 +299,19 @@ body {
     height: 100%;
     width: 100%;
   }
+  .chart-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.8);
+    height: 100%;
+    width: 100%;
+  }
+   #weather-chart {
+   position: relative;
+   margin: 30px auto;
+   width: 400px;
+ }
 
   .login-modal > .submit, .register-modal > .submit {
     font-family: "Roboto Condensed", sans-serif;
@@ -294,18 +353,14 @@ body {
         font-weight: normal;
         font-family: "Roboto Condensed", sans-serif;
         text-transform: uppercase;
-        .small {
-          padding-left: 12px;
-          color: #757575;
+        small {
+          padding-left: 12px !important;
+          color: #757575 !important;
         }
       }
       .realtime {
         font-family: "Roboto Condensed", sans-serif;
         text-transform: uppercase;
-        a {
-          color: #757575 !important;
-          text-transform: uppercase;
-        }
       }
     }
     span {
@@ -317,7 +372,20 @@ body {
       color: whitesmoke;
     }
   }
-
+  .forget {
+    font-family: "Roboto Condensed", sans-serif !important;
+    color: #8a8a8a !important;
+    font-size: 24px !important;
+    text-transform: uppercase !important;
+  }
+  .forget:hover {
+    color: #757575;
+  }
+  .close-details {
+    padding-left: 30px;
+    font-size: 30px;
+    color: #8a8a8a;
+  }
 }
 
 
@@ -325,6 +393,16 @@ body {
 
 @media only screen and ( min-width: $breakpoint ) {
   body {
+    .logo {
+      display: block;
+      position: absolute;
+      color: whitesmoke;
+      font-family: "Raleway", sans-serif;
+      font-size: 102px;
+      top: 33%;
+      left: 12%;
+      text-transform: uppercase;
+    }
     button {
       font-size: 24px !important;
       color: rgba(255,138,142,.7) ;
@@ -342,11 +420,14 @@ body {
       top: 48px;
       left: 48px;
     }
-    #forecast {
+    #forecast, {
       width: 48% !important;
       left: 48px !important;
       font-size: 24px !important;
       background: none !important;
+    }
+    #weather-chart {
+      border: 2px solid #8a8a8a !important;
     }
     #weather-form {
       margin: 40px 48px auto auto !important;
@@ -396,11 +477,6 @@ body {
         text-transform: none !important;
         font-family: "Arial", sans-serif !important;
         font-size: 24px !important;
-        .forget {
-          font-family: "Roboto Condensed", sans-serif !important;
-          color: #757575 !important;
-          font-size: 24px !important;
-        }
       }
     }
     .login-modal, .register-modal {

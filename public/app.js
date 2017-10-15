@@ -1,6 +1,10 @@
 var app = angular.module('skycastApp', []);
 var input = '';
 
+google.charts.load("current", {packages:["corechart"]});
+google.charts.setOnLoadCallback(app.drawChart);
+
+
 ////////////////////
 // GOOGLE MAPS
 // Resource: https://developers.google.com/maps/documentation/javascript/examples/places-searchbox
@@ -353,6 +357,17 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
   this.myLocations = [];
   this.myForecast = {};
   this.newLocation = {};
+  this.todayTemp = 0;
+  this.twoDaysAgoTemp = 0;
+  this.yesterdayTemp = 0;
+  this.tomorrowTemp = 0;
+  this.todayPrecip = 0;
+  this.twoDaysAgoPrecip = 0;
+  this.yesterdayPrecip = 0;
+  this.tomorrowPrecip = 0;
+  this.showChart = false;
+
+
   // GET WEATHER
   // Store the input values of searched location in variables so that they can be referenced outside this function
   // GET request to Dark Sky API returns forecast
@@ -363,7 +378,7 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
     this.lat = document.getElementById('latitude').value;
     this.lng = document.getElementById('longitude').value;
     this.location = document.getElementById('city-search').value;
-    console.log('https://api.darksky.net/forecast/a9d279d680c92a498e132e03592ee873' + '/' + lat + ',' + long + '?units=auto');
+    // console.log('https://api.darksky.net/forecast/a9d279d680c92a498e132e03592ee873' + '/' + lat + ',' + long + '?units=auto');
     $http({
       method: 'GET',
       // url: this.url + '/forecasts/index',
@@ -403,6 +418,7 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
       skycon.set("skycon", Skycons.FOG);
     }
     skycon.play();
+    this.getTrends();
   }
 
   // SAVE LOCATION
@@ -476,6 +492,84 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
       console.log(response);
       this.myLocations.splice(index, 1);
     }).catch(err => console.log(err));
+  }
+
+  this.getTrends = () => {
+    let lat = this.lat;
+    let lng = this.lng;
+    // 24 hours ago
+    let yesterday = Math.round((new Date()).getTime() / 1000) - 86400;
+    let twoDaysAgo = Math.round((new Date()).getTime() / 1000) - 172800;
+    let today = Math.round((new Date()).getTime() / 1000);
+    let tomorrow = Math.round((new Date()).getTime() / 1000) + 86400;
+    $http({
+      method: 'GET',
+      url: 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/a9d279d680c92a498e132e03592ee873' + '/' + lat + ',' + long + ',' + yesterday,
+      headers: { api_key: 'DARK_SKY_API_KEY' },
+    }).then( response => {
+      console.log(response);
+      this.yesterdayTemp = response.data.currently.apparentTemperature;
+      this.yesterdayPrecip = response.data.currently.precipProbability * 100;
+    });
+    $http({
+      method: 'GET',
+      url: 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/a9d279d680c92a498e132e03592ee873' + '/' + lat + ',' + long + ',' + today,
+      headers: { api_key: 'DARK_SKY_API_KEY' },
+    }).then( response => {
+      console.log(response);
+      this.todayTemp = response.data.currently.apparentTemperature;
+      this.todayPrecip = response.data.currently.precipProbability * 100;
+    });
+    $http({
+      method: 'GET',
+      url: 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/a9d279d680c92a498e132e03592ee873' + '/' + lat + ',' + long + ',' + twoDaysAgo,
+      headers: { api_key: 'DARK_SKY_API_KEY' },
+    }).then( response => {
+      console.log(response);
+      this.twoDaysAgoTemp = response.data.currently.apparentTemperature;
+      this.twoDaysAgoPrecip = response.data.currently.precipProbability * 100;
+    });
+    $http({
+      method: 'GET',
+      url: 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/a9d279d680c92a498e132e03592ee873' + '/' + lat + ',' + long + ',' + tomorrow,
+      headers: { api_key: 'DARK_SKY_API_KEY' },
+    }).then( response => {
+      console.log(response);
+      this.tomorrowTemp = response.data.currently.apparentTemperature;
+      this.tomorrowPrecip = response.data.currently.precipProbability * 100;
+    });
+  }
+
+  this.drawChart = () => {
+    this.showChart=true;
+    console.log(this.twoDaysAgoTemp, "should have a value");
+    let title = this.location;
+    var data = google.visualization.arrayToDataTable([
+      ["Date", "°C", "% Precipitation"],
+      ["-2", this.twoDaysAgoTemp, this.twoDaysAgoPrecip],
+      ["-1", this.yesterdayTemp, this.yesterdayPrecip],
+      ["Today", this.todayTemp, this.todayPrecip],
+      ["+1", this.tomorrowTemp, this.tomorrowPrecip]
+    ]);
+    var view = new google.visualization.DataView(data);
+    var options =  { 'title': title,
+      width: 400,
+      height: 400,
+      bar: {groupWidth: "95%"},
+      bars: 'vertical',
+      curveType: 'function',
+      legend: {'position': 'bottom', 'alignment': 'start'},
+      colors: ["#8a8a8a", "#963f42"],
+      'chartArea': {
+          'backgroundColor': {
+          'fill': '#F4F4F4',
+          'opacity': 100
+        },
+      }
+
+    };
+    var chart = new google.visualization.LineChart(document.getElementById("weather-chart"));
+    chart.draw(view, options);
   }
 
   ///////////////////////////

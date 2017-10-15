@@ -20,12 +20,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
     <!-- Link to Google Maps places,geometry,viz libraries, and autocomplete -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFLkNkNg4qp6NDEQQVxuU2CLFlgl6TyKY&libraries=visualization,places,geometry&callback=initAutocomplete" async defer></script>
+    <!-- Google Charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <!-- Link to app.js File  -->
     <script type="text/javascript" src="app.js"></script>
     <!-- Google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto+Condensed:700" rel="stylesheet">
     <title>SkyMap: Changing with the Weather</title>
   </head>
+
+
   <!-- Body -->
   <body ng-controller="mainController as ctrl">
 
@@ -93,13 +97,16 @@
         <p class="precipitation"> {{ctrl.forecast.currently.precipProbability}}% Chance of Precipitation</p><br/>
         <p class="realtime"><strong>Expect {{ctrl.forecast.daily.summary}}</p>
         <button class="btn" type="button" name="button" ng-show="ctrl.user.username" ng-click="ctrl.saveLocation(lat, lng, location)">Save This Location</button>
-        <button type="button" name="button">View Trends</button>
+        <button type="button" name="button" ng-click="ctrl.drawChart()">View Trends</button>
       </div>
     </div>
 
-    <div class="trends">
-      <canvas id="weather-chart" width="300" height="300"></canvas>
+    <div class="chart-container" ng-show="ctrl.showChart===true">
+      <span ng-click="ctrl.showChart=false">&times;</span>
+      <div id="weather-chart">
+      </div>
     </div>
+
 
     <div class="user-locations modal" ng-show="userLocationsPage===true">
       <div class="locations-data">
@@ -112,7 +119,7 @@
           <div class="details" ng-show="showDetails===true">
             <p class="realtime">{{location.forecast.daily.summary}}</p>
             <a href="#" ng-click="ctrl.forgetLocation(location)" class="forget">Forget This Location</a>
-            <a ng-click="showDetails=false">&times</a>
+            <a href=# class="close-details" ng-click="showDetails=false">&times</a>
           </div>
         </div>
         <span ng-click="userLocationsPage=false">&times</span>
