@@ -32,8 +32,8 @@
       font-family: "Roboto Condensed", sans-serif;
       text-transform: uppercase; }
     #forecast-container #forecast .realtime {
-      font-family: "Roboto Condensed", sans-serif;
-      text-transform: uppercase; }
+      font-family: "Roboto Condensed", sans-serif !important;
+      text-transform: uppercase !important; }
 
 /*Google Maps Styling*/
 #map {
@@ -125,7 +125,9 @@ body {
     text-transform: uppercase !important; }
   body button {
     font-family: "Roboto Condensed", sans-serif !important;
-    text-transform: uppercase !important; }
+    text-transform: uppercase !important;
+    background: none;
+    border: none; }
   body #weather-form {
     margin: 0 auto;
     text-align: center !important;
@@ -234,9 +236,15 @@ body {
         font-weight: normal;
         font-family: "Roboto Condensed", sans-serif;
         text-transform: uppercase; }
+        body .locations-data .location .conditions .small {
+          padding-left: 12px;
+          color: #757575; }
       body .locations-data .location .realtime {
         font-family: "Roboto Condensed", sans-serif;
         text-transform: uppercase; }
+        body .locations-data .location .realtime a {
+          color: #757575 !important;
+          text-transform: uppercase; }
     body .locations-data span {
       position: absolute;
       top: 0;
@@ -244,5 +252,97 @@ body {
       font-weight: 100;
       font-size: 66px;
       color: whitesmoke; }
+
+@media only screen and (min-width: 950px) {
+  body button {
+    font-size: 24px !important;
+    color: rgba(255, 138, 142, 0.7); }
+  body .btn {
+    font-size: 36px; }
+  body .login {
+    position: fixed;
+    top: 48px;
+    left: 48px; }
+  body .logout {
+    position: fixed;
+    top: 48px;
+    left: 48px; }
+  body #forecast {
+    width: 48% !important;
+    left: 48px !important;
+    font-size: 24px !important;
+    background: none !important; }
+  body #weather-form {
+    margin: 40px 48px auto auto !important;
+    width: 42% !important; }
+    body #weather-form label {
+      font-size: 24px !important;
+      text-transform: uppercase; }
+    body #weather-form input {
+      height: 48px !important;
+      width: 260px !important; }
+  body #map {
+    width: 42% !important;
+    right: 48px !important;
+    left: auto !important;
+    border: 2px solid #8a8a8a;
+    box-shadow: 1px 1px 0 #757575, 1px 1px 1px #757575; }
+  body #dark-sky {
+    width: 360px !important;
+    right: 48px !important; }
+  body .locations-data {
+    background: rgba(0, 0, 0, 0.9) !important; }
+    body .locations-data span {
+      left: 48px;
+      right: auto; }
+    body .locations-data .location {
+      padding: 90px 12px 24px 90px !important; }
+    body .locations-data .name {
+      font-size: 30px !important; }
+    body .locations-data .temp {
+      font-size: 72px !important; }
+    body .locations-data .conditions {
+      font-size: 24px !important; }
+    body .locations-data .realtime {
+      font-weight: lighter !important;
+      text-transform: none !important;
+      font-family: "Arial", sans-serif !important;
+      font-size: 24px !important; }
+      body .locations-data .realtime .forget {
+        font-family: "Roboto Condensed", sans-serif !important;
+        color: #757575 !important;
+        font-size: 24px !important; }
+  body .login-modal, body .register-modal {
+    background: rgba(0, 0, 0, 0.9) !important; }
+    body .login-modal span, body .register-modal span {
+      left: 48px;
+      right: auto; }
+  body .modal {
+    width: 53% !important;
+    background: white !important; }
+    body .modal button {
+      font-size: 24px !important; }
+    body .modal .login-modal input, body .modal .register-modal input {
+      font-size: 24px !important; }
+    body .modal .login-modal .submit, body .modal .register-modal .submit {
+      font-size: 24px !important; }
+    body .modal .modal-content {
+      padding-top: 66px !important;
+      width: 53% !important;
+      box-shadow: none;
+      border-radius: 0 !important;
+      background: rgba(0, 0, 0, 0.9) !important; }
+      body .modal .modal-content h1 {
+        font-size: 66px !important;
+        font-weight: 100 !important; }
+      body .modal .modal-content p {
+        font-size: 28px; }
+      body .modal .modal-content button {
+        margin: 20px !important;
+        border: 1px solid #757575 !important;
+        width: 236px !important; }
+      body .modal .modal-content button:hover {
+        background: rgba(255, 255, 255, 0.3) !important;
+        color: black !important; } }
 
 /*# sourceMappingURL=main.css.map */

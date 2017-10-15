@@ -26,7 +26,7 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto+Condensed:700" rel="stylesheet">
     <title>SkyMap: Changing with the Weather</title>
   </head>
-  <!-- DOM -->
+  <!-- Body -->
   <body ng-controller="mainController as ctrl">
 
     <div class="modal" id="modal-home" ng-show="ctrl.home===true">
@@ -42,8 +42,8 @@
 
         <form ng-show="showLogin===true" ng-submit="ctrl.login(userPass)" class="modal">
           <div class="login-modal">
-            <input type="text" ng-model="userPass.username" placeholder="username"/>
-            <input type="password" ng-model="userPass.password" placeholder="password"/>
+            <input type="text" ng-model="userPass.username" placeholder="username"/><br/>
+            <input type="password" ng-model="userPass.password" placeholder="password"/><br/>
             <input type="submit" class="submit"/>
             <span ng-click="showLogin=false" class="btn">&times;</span>
           </div>
@@ -51,9 +51,9 @@
 
         <form ng-show="showReg===true" ng-submit="ctrl.register(userReg)" class="modal">
           <div class="register-modal">
-            <input type="text" ng-model="userReg.username" placeholder="username"/>
-            <input type="password" ng-model="userReg.password" placeholder="password"/>
-            <input type="password" ng-model="userReg.confirmPassword" placeholder="confirm password"/>
+            <input type="text" ng-model="userReg.username" placeholder="username"/><br/>
+            <input type="password" ng-model="userReg.password" placeholder="password"/><br/>
+            <input type="password" ng-model="userReg.confirmPassword" placeholder="confirm password"/><br/>
             <input type="submit" class="submit"/>
             <span ng-click="showReg=false" class="btn">&times;</span>
             <br/>
@@ -69,8 +69,8 @@
     <form ng-submit="ctrl.getWeather()" class="form" id="weather-form"><br/>
       <div class="form-group">
         <name>
-          <label for="city-search" >Enter Your Location</label>
-          <input type="text" id="city-search" placeholder="e.g. Seattle, WA" class="input-group input-lg">
+          <label for="city-search" ><span class="glyphicon glyphicon-search"></span> Location</label>
+          <input type="text" id="city-search" placeholder="e.g. Space Needle" class="input-group input-lg">
         </name>
         <latitude>
           <input name="latitude" type="hidden" ng-model="coords.latitude" id="latitude" placeholder="e.g. 47.6062" value="" class="input-group input-lg" required>
@@ -97,6 +97,10 @@
       </div>
     </div>
 
+    <div class="trends">
+      <canvas id="weather-chart" width="300" height="300"></canvas>
+    </div>
+
     <div class="user-locations modal" ng-show="userLocationsPage===true">
       <div class="locations-data">
         <div class="location" ng-repeat="location in ctrl.myLocations">
@@ -105,13 +109,11 @@
           <p class="conditions">{{location.forecast.currently.summary}}
             <a href="#" ng-click="showDetails=true"><small>DETAILS</small></a>
           </p>
-
           <div class="details" ng-show="showDetails===true">
             <p class="realtime">{{location.forecast.daily.summary}}</p>
-            <a href="#" ng-click="ctrl.forgetLocation()">Forget This Location</a>
+            <a href="#" ng-click="ctrl.forgetLocation(location)" class="forget">Forget This Location</a>
             <a ng-click="showDetails=false">&times</a>
           </div>
-
         </div>
         <span ng-click="userLocationsPage=false">&times</span>
       </div>
@@ -119,10 +121,10 @@
 
   <footer>
     <div name="userAuthButtons" class="user-auth-buttons">
-      <button ng-click="ctrl.home=true" ng-show="!ctrl.user.username" class="btn">
+      <button ng-click="ctrl.home=true" ng-show="!ctrl.user.username" class="btn login">
         Log In
       </button>
-      <button ng-click="ctrl.logout()" ng-show="ctrl.user.username">
+      <button ng-click="ctrl.logout()" ng-show="ctrl.user.username" class="logout">
         Log Out
       </button>
     </div>

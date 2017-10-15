@@ -464,6 +464,24 @@ app.controller('mainController', ['$http', '$scope', '$filter', function($http, 
     this.myLocations.unshift(newLocation);
   }
 
+  // Delete Route for User's Saved Locations
+  this.forgetLocation = (location) => {
+    console.log(location, "Location");
+    let id = location.id;
+    let index = this.myLocations.indexOf(location);
+    $http({
+      method: 'DELETE',
+      url: this.url + '/locations/' + id
+    }).then(response => {
+      console.log(response);
+      this.myLocations.splice(index, 1);
+    }).catch(err => console.log(err));
+  }
+
+  ///////////////////////////
+  // User Authorization
+  ///////////////////////////
+
   // LOGIN
   this.login = (userPass) => {
     $http({

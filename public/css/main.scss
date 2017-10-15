@@ -1,4 +1,4 @@
-$breakpoint: 800px;
+$breakpoint: 950px;
 $sky-grey: #8a8a8a;
 
 #forecast-container {
@@ -38,8 +38,8 @@ $sky-grey: #8a8a8a;
       text-transform: uppercase;
     }
     .realtime {
-      font-family: "Roboto Condensed", sans-serif;
-      text-transform: uppercase;
+      font-family: "Roboto Condensed", sans-serif !important;
+      text-transform: uppercase !important;
     }
   }
 }
@@ -149,6 +149,9 @@ body {
   button {
     font-family: "Roboto Condensed", sans-serif !important;
     text-transform: uppercase !important;
+    background: none;
+    border: none;
+
   }
 
   #weather-form {
@@ -291,10 +294,18 @@ body {
         font-weight: normal;
         font-family: "Roboto Condensed", sans-serif;
         text-transform: uppercase;
+        .small {
+          padding-left: 12px;
+          color: #757575;
+        }
       }
       .realtime {
         font-family: "Roboto Condensed", sans-serif;
         text-transform: uppercase;
+        a {
+          color: #757575 !important;
+          text-transform: uppercase;
+        }
       }
     }
     span {
@@ -312,8 +323,135 @@ body {
 
 // Styling for Desktop
 
-@media only screen and ( min-width: 800px ) {
+@media only screen and ( min-width: $breakpoint ) {
+  body {
+    button {
+      font-size: 24px !important;
+      color: rgba(255,138,142,.7) ;
+    }
+    .btn {
+      font-size: 36px;
+    }
+    .login {
+      position: fixed;
+      top: 48px;
+      left: 48px;
+    }
+    .logout {
+      position: fixed;
+      top: 48px;
+      left: 48px;
+    }
+    #forecast {
+      width: 48% !important;
+      left: 48px !important;
+      font-size: 24px !important;
+      background: none !important;
+    }
+    #weather-form {
+      margin: 40px 48px auto auto !important;
+      width: 42% !important;
+      label {
+        font-size: 24px !important;
+        text-transform: uppercase;
+      }
+      input {
+        height: 48px !important;
+        width: 260px !important;
+      }
+    }
+    #map {
+      width: 42% !important;
+      right: 48px !important;
+      left: auto !important;
+      border: 2px solid $sky-grey;
+      box-shadow: 1px 1px 0 #757575,
+            1px 1px 1px #757575,
 
+    }
+    #dark-sky {
+      width: 360px !important;
+      right: 48px !important;
+    }
+    .locations-data {
+      span {
+        left: 48px;
+        right: auto;
+      }
+      background: rgba(0, 0, 0, .9) !important;
+      .location {
+        padding: 90px 12px 24px 90px !important;
+      }
+      .name {
+        font-size: 30px !important;
+      }
+      .temp {
+        font-size: 72px !important;
+      }
+      .conditions {
+        font-size: 24px !important;
+      }
+      .realtime {
+        font-weight: lighter !important;
+        text-transform: none !important;
+        font-family: "Arial", sans-serif !important;
+        font-size: 24px !important;
+        .forget {
+          font-family: "Roboto Condensed", sans-serif !important;
+          color: #757575 !important;
+          font-size: 24px !important;
+        }
+      }
+    }
+    .login-modal, .register-modal {
+      background: rgba(0,0,0,.9) !important;
+      span {
+        left: 48px;
+        right: auto;
+      }
+    }
+    .modal {
+      width: 53% !important;
+      background: rgb(255,255,255) !important;
+      button {
+        font-size: 24px !important;
+      }
+      .login-modal, .register-modal {
+        input {
+          // width: 48% !important;
+          font-size: 24px !important;
+        }
+        .submit {
+          font-size: 24px !important;
+        }
+      }
+      .modal-content {
+        padding-top: 66px !important;
+        width: 53% !important;
+        // border-right: 2px solid $sky-grey;
+        box-shadow: none;
+        border-radius: 0 !important;
+        background: rgba(0,0,0,.9) !important;
+        h1 {
+          font-size: 66px !important;
+          font-weight: 100 !important;
+        }
+        p {
+          font-size: 28px;
+          // color: #9a9a9a !important;
+        }
+        button {
+          margin: 20px !important;
+          border: 1px solid #757575!important;
+          width: 236px !important;
+        }
+        button:hover {
+          background: rgba(255,255,255,.3) !important;
+          color: black !important;
+        }
+      }
+    }
+  }
 
 
 }
